@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+
+/* Minimal replacement for Tailwind Preflight used by the original React project. */
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0;scrollbar-width:thin;scrollbar-color:#e2e8f0 transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:#1e2742;font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
+button{appearance:none}
+ul,ol{list-style:none}
+svg,img{display:block;max-width:100%}
+
+.u001{font-family:'Inter', sans-serif;background:#fff;color:#1e2742;overflow-x:hidden}
+.u002{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.94);backdrop-filter:blur(12px);border-bottom:1px solid #e8eaf0}
+.u003{max-width:1160px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.u004{display:flex;align-items:center;gap:10px;text-decoration:none}
+.u005{font-family:'Outfit', sans-serif;font-weight:800;font-size:18px;color:#1e2742;letter-spacing:-0.02em}
+.u006{color:#2563eb}
+.u007{display:flex;gap:32px;font-size:14px;font-weight:500}
+.u008{color:#64748b;text-decoration:none;transition:color 0.2s}
+.u009{font-family:'Outfit', sans-serif;font-weight:700;font-size:14px;background:#2563eb;color:#fff;padding:10px 22px;border-radius:8px;text-decoration:none;transition:opacity 0.2s}
+.u010{min-height:100vh;display:flex;align-items:center;padding-top:64px}
+.u011{max-width:1160px;margin:0 auto;padding:80px 24px}
+.u012{font-family:'Outfit', sans-serif;font-size:clamp(44px, 7vw, 82px);font-weight:900;line-height:1.05;letter-spacing:-0.04em;margin:0 0 32px;max-width:860px}
+.u013{font-size:18px;color:#64748b;line-height:1.7;max-width:520px;margin:0 0 48px}
+.u014{display:inline-flex;align-items:center;gap:8px;color:#2563eb;font-weight:600;font-size:17px;text-decoration:none;border-bottom:2px solid #2563eb;padding-bottom:2px;transition:gap 0.2s}
+.u015{background:#f5f7fa;border-top:1px solid #e8eaf0;border-bottom:1px solid #e8eaf0}
+.u016{max-width:1160px;margin:0 auto;padding:64px 24px;display:grid;grid-template-columns:repeat(4, 1fr);gap:0}
+.u017{padding:24px 32px;border-right:1px solid #e8eaf0}
+.u018{font-family:'Outfit', sans-serif;font-size:56px;font-weight:900;color:#1e2742;line-height:1;letter-spacing:-0.04em;margin-bottom:6px}
+.u019{font-size:15px;color:#64748b;font-weight:500}
+.u020{padding:24px 32px;border-right:none}
+.u021{padding:100px 24px;max-width:1160px;margin:0 auto}
+.u022{font-family:'Outfit', sans-serif;font-size:12px;font-weight:700;letter-spacing:0.1em;color:#2563eb;text-transform:uppercase;margin-bottom:14px}
+.u023{font-family:'Outfit', sans-serif;font-size:clamp(28px, 4vw, 48px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin:0 0 56px}
+.u024{display:grid;grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));gap:24px}
+.u025{background:#f5f7fa;border:1px solid #e8eaf0;border-radius:16px;padding:32px 28px;transition:box-shadow 0.2s, transform 0.2s}
+.u026{color:#2563eb;margin-bottom:18px}
+.u027{font-family:'Outfit', sans-serif;font-size:22px;font-weight:700;margin-bottom:16px}
+.u028{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.u029{display:flex;align-items:center;gap:10px;font-size:14px;color:#64748b}
+.u030{width:5px;height:5px;border-radius:50%;background:#2563eb;flex-shrink:0}
+.u031{background:#f5f7fa;border-top:1px solid #e8eaf0;border-bottom:1px solid #e8eaf0;padding:100px 24px}
+.u032{max-width:1160px;margin:0 auto}
+.u033{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px}
+.u034{background:#fff;border:1px solid #e8eaf0;border-radius:16px;overflow:hidden;transition:box-shadow 0.2s, transform 0.2s}
+.u035{height:180px;background:#eef2ff;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8eaf0}
+.u036{font-family:'Outfit', sans-serif;font-weight:900;font-size:42px;color:#4f46e5;opacity:0.18;letter-spacing:-0.04em}
+.u037{padding:24px 24px 28px}
+.u038{font-family:'Outfit', sans-serif;font-size:20px;font-weight:700;margin-bottom:10px}
+.u039{font-size:14px;color:#64748b;line-height:1.7;margin-bottom:18px}
+.u040{display:flex;gap:8px;flex-wrap:wrap}
+.u041{font-size:12px;font-weight:600;background:#eef2ff;color:#4f46e5;border-radius:6px;padding:4px 10px}
+.u042{height:180px;background:#f0fdf4;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8eaf0}
+.u043{font-family:'Outfit', sans-serif;font-weight:900;font-size:42px;color:#16a34a;opacity:0.18;letter-spacing:-0.04em}
+.u044{font-size:12px;font-weight:600;background:#f0fdf4;color:#16a34a;border-radius:6px;padding:4px 10px}
+.u045{height:180px;background:#fff7ed;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #e8eaf0}
+.u046{font-family:'Outfit', sans-serif;font-weight:900;font-size:42px;color:#ea580c;opacity:0.18;letter-spacing:-0.04em}
+.u047{font-size:12px;font-weight:600;background:#fff7ed;color:#ea580c;border-radius:6px;padding:4px 10px}
+.u048{display:grid;grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));gap:20px}
+.u049{background:#fff;border:1px solid #e8eaf0;border-radius:16px;padding:28px 24px}
+.u050{font-family:'Outfit', sans-serif;font-size:20px;font-weight:700;color:#1e2742;margin-bottom:16px}
+.u051{display:flex;flex-direction:column;gap:10px}
+.u052{display:flex;align-items:center;gap:10px;font-size:14px;color:#374151;font-weight:500}
+.u053{width:6px;height:6px;border-radius:50%;background:#2563eb;flex-shrink:0}
+.u054{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.u055{font-family:'Outfit', sans-serif;font-size:clamp(28px, 4vw, 48px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin:0 0 20px}
+.u056{font-size:16px;color:#64748b;line-height:1.75;margin:0}
+.u057{display:grid;grid-template-columns:repeat(4, 1fr);gap:12px}
+.u058{background:#fff;border:1px solid #e8eaf0;border-radius:12px;padding:20px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;transition:box-shadow 0.2s, transform 0.2s}
+.u059{width:36px;height:36px;border-radius:8px;background:#fc3f1d;display:flex;align-items:center;justify-content:center}
+.u060{font-family:'Outfit', sans-serif;font-weight:900;font-size:14px;color:#fff;letter-spacing:-0.02em}
+.u061{font-family:'Outfit', sans-serif;font-weight:700;font-size:11px;color:#1e2742;text-align:center;line-height:1.2}
+.u062{width:36px;height:36px;border-radius:8px;background:#1a9f29;display:flex;align-items:center;justify-content:center}
+.u063{width:36px;height:36px;border-radius:8px;background:#0077ff;display:flex;align-items:center;justify-content:center}
+.u064{width:36px;height:36px;border-radius:8px;background:#f4c200;display:flex;align-items:center;justify-content:center}
+.u065{width:36px;height:36px;border-radius:8px;background:#00aaff;display:flex;align-items:center;justify-content:center}
+.u066{width:36px;height:36px;border-radius:8px;background:#005bff;display:flex;align-items:center;justify-content:center}
+.u067{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.u068{font-family:'Outfit', sans-serif;font-size:clamp(26px, 3.5vw, 44px);font-weight:800;letter-spacing:-0.03em;line-height:1.15;margin:0 0 20px}
+.u069{font-size:16px;color:#64748b;line-height:1.75;margin:0 0 32px;font-weight:400}
+.u070{display:flex;gap:40px}
+.u071{font-family:'Outfit', sans-serif;font-size:40px;font-weight:900;color:#1e2742;letter-spacing:-0.03em}
+.u072{font-size:13px;color:#64748b;margin-top:4px}
+.u073{display:flex;flex-direction:column;gap:16px}
+.u074{background:#fff;border:2px solid #f59e0b;border-radius:14px;padding:24px 24px}
+.u075{font-family:'Outfit', sans-serif;font-weight:700;font-size:17px;margin-bottom:8px}
+.u076{font-size:14px;color:#64748b;line-height:1.7;margin:0}
+.u077{background:#fff;border:2px solid #e8eaf0;border-radius:14px;padding:24px 24px}
+.u078{background:#fff;border:1px solid #e8eaf0;border-radius:16px;padding:32px 28px;display:flex;flex-direction:column;gap:20px}
+.u079{display:flex;gap:4px}
+.u080{font-size:15px;color:#374151;line-height:1.75;margin:0;flex:1}
+.u081{font-family:'Outfit', sans-serif;font-weight:700;font-size:15px;color:#1e2742}
+.u082{font-size:13px;color:#64748b;margin-top:2px}
+.u083{padding:100px 24px;max-width:860px;margin:0 auto}
+.u084{font-family:'Outfit', sans-serif;font-size:clamp(28px, 4vw, 48px);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin:0 0 48px}
+.u085{display:flex;flex-direction:column}
+.u086{border-bottom:1px solid #e8eaf0}
+.u087{width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:16px}
+.u088{font-family:'Outfit', sans-serif;font-weight:700;font-size:17px;color:#1e2742;line-height:1.3}
+.u089{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:#f5f7fa;border:1px solid #e8eaf0;display:flex;align-items:center;justify-content:center;transition:background 0.2s, transform 0.3s;transform:none}
+.u090{background:#1e2742;padding:100px 24px}
+.u091{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.u092{font-family:'Outfit', sans-serif;font-size:clamp(38px, 5vw, 68px);font-weight:900;letter-spacing:-0.04em;line-height:1;color:#fff;margin:0 0 16px}
+.u093{color:#38bdf8}
+.u094{font-size:15px;color:rgba(255,255,255,0.45);line-height:1.7;margin:0;max-width:340px}
+.u095{display:flex;flex-direction:column;gap:0;padding-top:8px}
+.u096{display:flex;justify-content:space-between;align-items:center;padding:22px 0;border-bottom:1px solid rgba(255,255,255,0.08);text-decoration:none;transition:opacity 0.2s;gap:16px}
+.u097{display:flex;align-items:center;gap:24px}
+.u098{font-size:11px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.3);min-width:80px}
+.u099{font-size:17px;font-weight:600;color:#fff}
+.u100{background:#111827;border-top:1px solid rgba(255,255,255,0.06);padding:28px 24px}
+.u101{max-width:1160px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.u102{display:flex;align-items:center;gap:10px}
+.u103{font-family:'Outfit', sans-serif;font-weight:800;font-size:16px;color:#fff}
+.u104{font-size:13px;color:rgba(255,255,255,0.3)}
+
+        
+        }
+        
+        }
+      
+
+/* Vanilla-CSS replacements for the React mouse handlers. */
+.nav-link:hover{color:#2563eb!important}
+.nav-cta:hover{opacity:.85}
+.hero-link:hover{gap:14px!important}
+.service-card:hover{box-shadow:0 8px 32px rgba(37,99,235,.1);transform:translateY(-3px)}
+.project-card:hover{box-shadow:0 8px 32px rgba(0,0,0,.08);transform:translateY(-3px)}
+.company-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.07);transform:translateY(-2px)}
+.contact-link:hover{opacity:.65}
+
+/* FAQ state, previously implemented with React useState. */
+.faq-answer{display:none;padding-bottom:22px;padding-right:44px}
+.faq-answer-text{font-size:15px;color:#64748b;line-height:1.75;margin:0}
+.faq-item.is-open .faq-answer{display:block}
+.faq-item.is-open .faq-toggle{background:#2563eb!important;transform:rotate(45deg)!important}
+.faq-item.is-open .faq-toggle path{stroke:#fff!important}
+
+/* Responsive rules from the source plus small-screen layout safeguards. */
+@media (max-width:860px){
+  .nav-menu{display:none!important}
+}
+@media (max-width:760px){
+  [data-two-col]{grid-template-columns:1fr!important;gap:48px!important}
+  #contact>div{grid-template-columns:1fr!important;gap:48px!important}
+  .stats>div{grid-template-columns:repeat(2,1fr)!important}
+  .stats>div>div{border-right:none!important;border-bottom:1px solid #e8eaf0}
+}
+@media (max-width:520px){
+  .nav-cta{padding:9px 13px!important;font-size:12px!important}
+  .brand span{font-size:16px!important}
+  .stats>div{grid-template-columns:1fr!important;padding:36px 24px!important}
+  #contact .contact-link>div{gap:12px!important;align-items:flex-start!important;flex-direction:column!important}
+}
