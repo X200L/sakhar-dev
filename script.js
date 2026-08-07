@@ -1,7 +1,73 @@
 (() => {
   'use strict';
 
-  // FAQ accordion: only one question is open at a time, matching the React version.
+  // Language management
+  let currentLang = 'ru';
+
+  // Auto-detect language on first visit
+  function detectLanguage() {
+    const savedLang = localStorage.getItem('sakhardev-lang');
+    if (savedLang) {
+      return savedLang;
+    }
+
+    // Detect browser language
+    const browserLang = navigator.language || navigator.userLanguage;
+    const lang = browserLang.startsWith('ru') ? 'ru' : 'en';
+    localStorage.setItem('sakhardev-lang', lang);
+    return lang;
+  }
+
+  // Update all translatable elements
+  function updateLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('sakhardev-lang', lang);
+
+    // Update language toggle button
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+      langToggle.querySelector('.lang-active').textContent = lang.toUpperCase();
+    }
+
+    // Update all elements with data-ru and data-en attributes
+    document.querySelectorAll('[data-ru][data-en]').forEach(element => {
+      const text = element.getAttribute(`data-${lang}`);
+      if (text) {
+        // Check if it's an input/textarea
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+          element.placeholder = text;
+        } else if (element.classList.contains('faq-answer-text')) {
+          // Use innerHTML for FAQ answers to preserve links
+          element.innerHTML = text;
+        } else {
+          element.textContent = text;
+        }
+      }
+    });
+
+    // Update document language
+    document.documentElement.lang = lang;
+  }
+
+  // Toggle language
+  function toggleLanguage() {
+    const newLang = currentLang === 'ru' ? 'en' : 'ru';
+    updateLanguage(newLang);
+  }
+
+  // Initialize language on page load
+  function initLanguage() {
+    const lang = detectLanguage();
+    updateLanguage(lang);
+
+    // Add click handler to language toggle
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+      langToggle.addEventListener('click', toggleLanguage);
+    }
+  }
+
+  // FAQ accordion: only one question is open at a time
   const faqItems = [...document.querySelectorAll('.faq-item')];
   faqItems.forEach((item) => {
     const button = item.querySelector('.faq-button');
@@ -27,7 +93,7 @@
     });
   });
 
-  // Close an opened FAQ with Escape for keyboard users.
+  // Close an opened FAQ with Escape for keyboard users
   document.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape') return;
     const openItem = document.querySelector('.faq-item.is-open');
@@ -38,4 +104,11 @@
     if (button) button.setAttribute('aria-expanded', 'false');
     if (answer) answer.setAttribute('aria-hidden', 'true');
   });
+
+  // Initialize on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLanguage);
+  } else {
+    initLanguage();
+  }
 })();
