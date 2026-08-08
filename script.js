@@ -3,13 +3,23 @@
 
   let currentLang = 'ru';
 
+  // Safari/Private Mode и некоторые окружения могут запрещать localStorage.
+  // Меню не должно из-за этого переставать работать.
+  function safeStorageGet(key) {
+    try { return window.localStorage.getItem(key); } catch (_) { return null; }
+  }
+
+  function safeStorageSet(key, value) {
+    try { window.localStorage.setItem(key, value); } catch (_) {}
+  }
+
   function detectLanguage() {
-    const saved = localStorage.getItem('sakhardev-lang');
+    const saved = safeStorageGet('sakhardev-lang');
     if (saved === 'ru' || saved === 'en') return saved;
 
     const browserLang = navigator.language || navigator.userLanguage || 'ru';
     const lang = browserLang.toLowerCase().startsWith('ru') ? 'ru' : 'en';
-    localStorage.setItem('sakhardev-lang', lang);
+    safeStorageSet('sakhardev-lang', lang);
     return lang;
   }
 
@@ -38,14 +48,12 @@
     const leading = original.match(/^\s*/)?.[0] || '';
     const trailing = original.match(/\s*$/)?.[0] || '';
     textNodes[0].nodeValue = `${leading}${text}${trailing}`;
-    textNodes.slice(1).forEach((node) => {
-      node.nodeValue = '';
-    });
+    textNodes.slice(1).forEach((node) => { node.nodeValue = ''; });
   }
 
   function updateLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('sakhardev-lang', lang);
+    safeStorageSet('sakhardev-lang', lang);
 
     document.querySelectorAll('[data-lang-toggle] .lang-active').forEach((label) => {
       label.textContent = lang.toUpperCase();
@@ -60,12 +68,16 @@
   }
 
   function initLanguage() {
-    updateLanguage(detectLanguage());
-    document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
-      button.addEventListener('click', () => {
-        updateLanguage(currentLang === 'ru' ? 'en' : 'ru');
+    try {
+      updateLanguage(detectLanguage());
+      document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+        button.addEventListener('click', () => {
+          updateLanguage(currentLang === 'ru' ? 'en' : 'ru');
+        });
       });
-    });
+    } catch (error) {
+      console.warn('Language switcher init failed:', error);
+    }
   }
 
   function initFaq() {
@@ -102,14 +114,21 @@
     const setOpen = (open) => {
       toggle.classList.toggle('active', open);
       menu.classList.toggle('active', open);
+      document.documentElement.classList.toggle('menu-open', open);
       document.body.classList.toggle('menu-open', open);
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+      menu.setAttribute('aria-hidden', String(!open));
     };
 
+    // Начальное состояние всегда синхронизировано с DOM.
+    setOpen(false);
+
     toggle.addEventListener('click', (event) => {
+      event.preventDefault();
       event.stopPropagation();
-      setOpen(!menu.classList.contains('active'));
+      const nextState = toggle.getAttribute('aria-expanded') !== 'true';
+      setOpen(nextState);
     });
 
     menu.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -122,13 +141,14 @@
 
     window.addEventListener('resize', () => {
       if (window.innerWidth > 860) setOpen(false);
-    });
+    }, { passive: true });
   }
 
   function init() {
+    // Меню инициализируем первым: оно не зависит от переводов или localStorage.
+    try { initMobileMenu(); } catch (error) { console.error('Mobile menu init failed:', error); }
+    try { initFaq(); } catch (error) { console.warn('FAQ init failed:', error); }
     initLanguage();
-    initFaq();
-    initMobileMenu();
   }
 
   if (document.readyState === 'loading') {
