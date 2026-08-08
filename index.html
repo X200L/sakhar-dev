@@ -10,70 +10,72 @@
 <body>
   <div class="app u001">
     <!-- Навигация -->
-    <nav class="site-nav u002">
+    <nav class="site-nav u002" aria-label="Основная навигация">
       <div class="nav-inner u003">
-        <a class="brand u004" href="#">
-          <img src="images/logo.svg" alt="SakharDev" style="width: 32px; height: 32px;">
-          <span class="u005">sakhar<span class="u006">dev</span></span>
+        <a class="brand u004" href="#" aria-label="SakharDev — на главную">
+          <img class="brand-logo-image" src="images/sakhardev-logo.jpg" alt="Логотип SakharDev">
+          <span class="u005 brand-name">sakhar<span class="u006">dev</span></span>
         </a>
-        <div class="nav-menu u007">
+
+        <div class="nav-menu u007" id="navMenu">
+          <a class="nav-link u008" href="#portfolio" data-ru="Работы" data-en="Work">Работы</a>
           <a class="nav-link u008" href="#services" data-ru="Услуги" data-en="Services">Услуги</a>
-          <a class="nav-link u008" href="#stack" data-ru="Стек" data-en="Stack">Стек</a>
-          <a class="nav-link u008" href="#portfolio" data-ru="Портфолио" data-en="Portfolio">Портфолио</a>
-          <a class="nav-link u008" href="#reviews" data-ru="Отзывы" data-en="Reviews">Отзывы</a>
-          <a class="nav-link u008" href="#faq" data-ru="FAQ" data-en="FAQ">FAQ</a>
+          <a class="nav-link u008" href="#contact" data-ru="Контакты" data-en="Contact">Контакты</a>
+
+          <div class="nav-mobile-actions">
+            <button class="lang-switch" type="button" data-lang-toggle aria-label="Сменить язык">
+              <span class="lang-active">RU</span>
+            </button>
+            <a class="nav-cta u009" href="#contact" data-ru="Обсудить проект" data-en="Start a project">Обсудить проект</a>
+          </div>
         </div>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-          <span class="hamburger-line"></span>
+
+        <div class="nav-actions">
+          <button class="lang-switch" type="button" data-lang-toggle aria-label="Сменить язык">
+            <span class="lang-active">RU</span>
+          </button>
+          <a class="nav-cta u009" href="#contact" data-ru="Связаться" data-en="Contact">Связаться</a>
+        </div>
+
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" type="button"
+                aria-label="Открыть меню" aria-controls="navMenu" aria-expanded="false">
           <span class="hamburger-line"></span>
           <span class="hamburger-line"></span>
         </button>
-        <div class="nav-actions">
-          <button class="lang-switch" id="langToggle" aria-label="Switch language">
-            <span class="lang-active">RU</span>
-          </button>
-          <a class="nav-cta u009" href="#contact" data-ru="Связаться" data-en="Contact">
-            Связаться
-            <svg fill="none" height="16" viewBox="0 0 24 24" width="16">
-              <path d="M7 17L17 7M17 7H7M17 7v10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            </svg>
-          </a>
-        </div>
       </div>
     </nav>
 
-    <!-- Hero секция -->
-    <section class="hero u010">
-      <!-- Декоративные круги фона -->
-      <div class="hero-bg-circle-1"></div>
-      <div class="hero-bg-circle-2"></div>
-      <div class="hero-bg-circle-3"></div>
-      <div class="hero-bg-circle-4"></div>
-      <div class="hero-bg-circle-5"></div>
-      <div class="hero-bg-circle-6"></div>
-      
-      <div class="u011">
-        
-        <!-- Заголовок -->
-        <h1 class="u012" data-ru="Разработка сайтов, сервисов и AI-продуктов" data-en="Development of websites, services and AI products">
-          Разработка сайтов, сервисов и AI-продуктов
-          <span class="hero-highlight" data-ru="под ваш бизнес" data-en="for your business">под ваш бизнес</span>
+    <!-- Главный экран -->
+    <section class="hero hero-editorial u010" aria-labelledby="hero-title">
+      <div class="hero-shell u011">
+        <h1 class="hero-title u012" id="hero-title">
+          <span class="hero-line" data-ru="Разработка сайтов," data-en="Development of websites,">Разработка сайтов,</span>
+          <span class="hero-line hero-line-long" data-ru="сервисов и AI-продуктов" data-en="services and AI products">сервисов и AI-продуктов</span>
+          <span class="hero-line hero-line-bottom" data-ru="под ваш бизнес" data-en="for your business">под ваш бизнес</span>
         </h1>
-        
-        <!-- Кнопки CTA -->
-        <div class="hero-cta-group">
-          <a class="hero-button-primary" href="#contact" data-ru="Запланировать встречу" data-en="Schedule a meeting">
-            Запланировать встречу
-            <svg fill="none" height="20" viewBox="0 0 24 24" width="20">
-              <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+
+        <div class="hero-meta">
+          <a class="hero-arrow" href="#services" aria-label="Перейти к услугам">
+            <svg viewBox="0 0 92 58" aria-hidden="true">
+              <path d="M2 29h80M60 7l22 22-22 22" fill="none" stroke="currentColor" stroke-width="2"/>
             </svg>
           </a>
-          <a class="hero-button-secondary" href="#portfolio" data-ru="Смотреть работы" data-en="View projects">
-            Смотреть работы
-            <svg fill="none" height="20" viewBox="0 0 24 24" width="20">
-              <path d="M7 17L17 7M17 7H7M17 7v10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-            </svg>
-          </a>
+
+          <p class="hero-description"
+             data-ru="Проектируем и разрабатываем сайты, сервисы и AI-продукты для бизнеса."
+             data-en="We design and build websites, services and AI products for ambitious businesses.">
+            Проектируем и разрабатываем сайты, сервисы и AI-продукты для бизнеса.
+          </p>
+
+          <div class="hero-meta-item">
+            <span data-ru="Разработка" data-en="Development">Разработка</span>
+            <span>WEB / AI / TELEGRAM</span>
+          </div>
+
+          <div class="hero-meta-item hero-location">
+            <span data-ru="Работаем" data-en="Available">Работаем</span>
+            <span>RU / WORLDWIDE</span>
+          </div>
         </div>
       </div>
     </section>

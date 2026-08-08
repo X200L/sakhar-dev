@@ -1,147 +1,139 @@
 (() => {
   'use strict';
 
-  // Language management
   let currentLang = 'ru';
 
-  // Auto-detect language on first visit
   function detectLanguage() {
-    const savedLang = localStorage.getItem('sakhardev-lang');
-    if (savedLang) {
-      return savedLang;
-    }
+    const saved = localStorage.getItem('sakhardev-lang');
+    if (saved === 'ru' || saved === 'en') return saved;
 
-    // Detect browser language
-    const browserLang = navigator.language || navigator.userLanguage;
-    const lang = browserLang.startsWith('ru') ? 'ru' : 'en';
+    const browserLang = navigator.language || navigator.userLanguage || 'ru';
+    const lang = browserLang.toLowerCase().startsWith('ru') ? 'ru' : 'en';
     localStorage.setItem('sakhardev-lang', lang);
     return lang;
   }
 
-  // Update all translatable elements
+  // Меняем только текстовые узлы элемента и не удаляем вложенные SVG/иконки/маркеры.
+  function setTranslatedText(element, text) {
+    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+      element.placeholder = text;
+      return;
+    }
+
+    if (element.classList.contains('faq-answer-text')) {
+      element.innerHTML = text;
+      return;
+    }
+
+    const textNodes = [...element.childNodes].filter(
+      (node) => node.nodeType === Node.TEXT_NODE && node.nodeValue.trim().length > 0
+    );
+
+    if (!textNodes.length) {
+      element.textContent = text;
+      return;
+    }
+
+    const original = textNodes[0].nodeValue;
+    const leading = original.match(/^\s*/)?.[0] || '';
+    const trailing = original.match(/\s*$/)?.[0] || '';
+    textNodes[0].nodeValue = `${leading}${text}${trailing}`;
+    textNodes.slice(1).forEach((node) => {
+      node.nodeValue = '';
+    });
+  }
+
   function updateLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('sakhardev-lang', lang);
 
-    // Update language toggle button
-    const langToggle = document.getElementById('langToggle');
-    if (langToggle) {
-      langToggle.querySelector('.lang-active').textContent = lang.toUpperCase();
-    }
-
-    // Update all elements with data-ru and data-en attributes
-    document.querySelectorAll('[data-ru][data-en]').forEach(element => {
-      const text = element.getAttribute(`data-${lang}`);
-      if (text) {
-        // Check if it's an input/textarea
-        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-          element.placeholder = text;
-        } else if (element.classList.contains('faq-answer-text')) {
-          // Use innerHTML for FAQ answers to preserve links
-          element.innerHTML = text;
-        } else {
-          element.textContent = text;
-        }
-      }
+    document.querySelectorAll('[data-lang-toggle] .lang-active').forEach((label) => {
+      label.textContent = lang.toUpperCase();
     });
 
-    // Update document language
+    document.querySelectorAll('[data-ru][data-en]').forEach((element) => {
+      const text = element.getAttribute(`data-${lang}`);
+      if (text) setTranslatedText(element, text);
+    });
+
     document.documentElement.lang = lang;
   }
 
-  // Toggle language
-  function toggleLanguage() {
-    const newLang = currentLang === 'ru' ? 'en' : 'ru';
-    updateLanguage(newLang);
-  }
-
-  // Initialize language on page load
   function initLanguage() {
-    const lang = detectLanguage();
-    updateLanguage(lang);
-
-    // Add click handler to language toggle
-    const langToggle = document.getElementById('langToggle');
-    if (langToggle) {
-      langToggle.addEventListener('click', toggleLanguage);
-    }
+    updateLanguage(detectLanguage());
+    document.querySelectorAll('[data-lang-toggle]').forEach((button) => {
+      button.addEventListener('click', () => {
+        updateLanguage(currentLang === 'ru' ? 'en' : 'ru');
+      });
+    });
   }
 
-  // FAQ accordion: only one question is open at a time
-  const faqItems = [...document.querySelectorAll('.faq-item')];
-  faqItems.forEach((item) => {
-    const button = item.querySelector('.faq-button');
-    const answer = item.querySelector('.faq-answer');
-    if (!button || !answer) return;
+  function initFaq() {
+    const faqItems = [...document.querySelectorAll('.faq-item')];
 
-    button.addEventListener('click', () => {
-      const willOpen = !item.classList.contains('is-open');
+    faqItems.forEach((item) => {
+      const button = item.querySelector('.faq-button');
+      const answer = item.querySelector('.faq-answer');
+      if (!button || !answer) return;
 
-      faqItems.forEach((other) => {
-        other.classList.remove('is-open');
-        const otherButton = other.querySelector('.faq-button');
-        const otherAnswer = other.querySelector('.faq-answer');
-        if (otherButton) otherButton.setAttribute('aria-expanded', 'false');
-        if (otherAnswer) otherAnswer.setAttribute('aria-hidden', 'true');
+      button.addEventListener('click', () => {
+        const willOpen = !item.classList.contains('is-open');
+
+        faqItems.forEach((other) => {
+          other.classList.remove('is-open');
+          other.querySelector('.faq-button')?.setAttribute('aria-expanded', 'false');
+          other.querySelector('.faq-answer')?.setAttribute('aria-hidden', 'true');
+        });
+
+        if (willOpen) {
+          item.classList.add('is-open');
+          button.setAttribute('aria-expanded', 'true');
+          answer.setAttribute('aria-hidden', 'false');
+        }
       });
-
-      if (willOpen) {
-        item.classList.add('is-open');
-        button.setAttribute('aria-expanded', 'true');
-        answer.setAttribute('aria-hidden', 'false');
-      }
     });
-  });
+  }
 
-  // Close an opened FAQ with Escape for keyboard users
-  document.addEventListener('keydown', (event) => {
-    if (event.key !== 'Escape') return;
-    const openItem = document.querySelector('.faq-item.is-open');
-    if (!openItem) return;
-    openItem.classList.remove('is-open');
-    const button = openItem.querySelector('.faq-button');
-    const answer = openItem.querySelector('.faq-answer');
-    if (button) button.setAttribute('aria-expanded', 'false');
-    if (answer) answer.setAttribute('aria-hidden', 'true');
-  });
-
-  // Mobile menu toggle
   function initMobileMenu() {
-    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (!mobileMenuToggle || !navMenu) return;
+    const toggle = document.getElementById('mobileMenuToggle');
+    const menu = document.getElementById('navMenu');
+    if (!toggle || !menu) return;
 
-    mobileMenuToggle.addEventListener('click', () => {
-      mobileMenuToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
+    const setOpen = (open) => {
+      toggle.classList.toggle('active', open);
+      menu.classList.toggle('active', open);
+      document.body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+    };
+
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      setOpen(!menu.classList.contains('active'));
     });
 
-    // Close menu when clicking on a nav link
-    navMenu.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenuToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-      });
+    menu.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
-        mobileMenuToggle.classList.remove('active');
-        navMenu.classList.remove('active');
-      }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 860) setOpen(false);
     });
   }
 
-  // Initialize on DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      initLanguage();
-      initMobileMenu();
-    });
-  } else {
+  function init() {
     initLanguage();
+    initFaq();
     initMobileMenu();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
   }
 })();
