@@ -8,3 +8,6 @@
 - `script.js` — FAQ-аккордеон
 
 Для запуска достаточно открыть `index.html` в браузере. Для разработки удобнее использовать любой локальный HTTP-сервер.
+
+
+Mobile v4: enlarged headline, removed forced shrinking/nowrap overflow, restored full-height hero spacing, removed emoji characters and text-glyph menu decoration.

@@ -455,7 +455,7 @@ p,h1,h2,h3,h4,a,span,li{overflow-wrap:break-word}
     letter-spacing:-.03em;
     text-transform:uppercase;
   }
-  .nav-menu .nav-link::after{content:'↗';position:static;width:auto;height:auto;background:none;font-family:Arial,sans-serif;font-size:.55em;font-weight:400}
+  .nav-menu .nav-link::after{content:'';position:static;width:auto;height:auto;background:none;font-family:Arial,sans-serif;font-size:.55em;font-weight:400}
   .nav-mobile-actions{
     margin-top:auto;padding-top:34px;
     display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center
@@ -847,7 +847,7 @@ body,
     text-decoration:none;
   }
   .nav-menu.u007 .nav-link::after{
-    content:'↗';
+    content:'';
     position:static;
     width:auto;
     height:auto;
@@ -975,3 +975,140 @@ body,
   .hero-arrow{width:52px}
 }
 html.menu-open,body.menu-open{overflow:hidden!important;overscroll-behavior:none}
+
+
+/* =========================================================
+   Mobile hero v4 — larger safe headline + full first screen
+   ========================================================= */
+@media (max-width:860px){
+  /* The first screen stays spacious instead of collapsing to content height. */
+  .hero.hero-editorial.u010{
+    min-height:100svh!important;
+    min-height:100dvh!important;
+    padding:0!important;
+    overflow:hidden!important;
+  }
+
+  .hero-editorial .hero-shell.u011{
+    width:100%;
+    max-width:100%;
+    min-height:100svh!important;
+    min-height:100dvh!important;
+    padding:calc(var(--header-h) + 54px) 20px 54px!important;
+    display:flex!important;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  /* Never shrink individual lines to make a long phrase fit.
+     Long phrases wrap naturally, so the title cannot leave the viewport. */
+  .hero-title.u012{
+    width:100%;
+    max-width:100%;
+    margin:clamp(44px,7vh,78px) 0 0!important;
+    font-size:clamp(46px,12.4vw,62px)!important;
+    line-height:.89!important;
+    letter-spacing:-.035em!important;
+    overflow:visible;
+  }
+  .hero-line,
+  .hero-line-long,
+  .hero-line-bottom{
+    display:block;
+    width:100%;
+    max-width:100%;
+    white-space:normal!important;
+    font-size:1em!important;
+    letter-spacing:inherit!important;
+    overflow-wrap:normal;
+    word-break:normal;
+    hyphens:none;
+    text-wrap:balance;
+  }
+  .hero-line + .hero-line{margin-top:.045em}
+  .hero-line-bottom{margin-top:.12em!important}
+
+  /* Push supporting copy toward the lower part of the first screen,
+     keeping the composition airy while avoiding a giant dead gap. */
+  .hero-meta{
+    width:100%;
+    max-width:100%;
+    margin-top:auto!important;
+    padding-top:clamp(64px,11vh,118px)!important;
+    display:grid!important;
+    grid-template-columns:68px minmax(0,1fr)!important;
+    column-gap:20px!important;
+    row-gap:24px!important;
+    align-items:start!important;
+  }
+  .hero-arrow{
+    width:62px!important;
+    max-width:100%;
+    grid-column:1!important;
+    grid-row:1 / span 3!important;
+    margin-top:4px!important;
+  }
+  .hero-description{
+    grid-column:2!important;
+    max-width:100%!important;
+    margin:0!important;
+    font-size:19px!important;
+    line-height:1.42!important;
+    letter-spacing:-.02em!important;
+    overflow-wrap:anywhere;
+  }
+  .hero-meta-item{
+    grid-column:2!important;
+    max-width:100%;
+    font-size:16px!important;
+    line-height:1.25!important;
+  }
+  .hero-meta-item span:first-child{
+    font-size:12.5px!important;
+    line-height:1.2!important;
+  }
+
+  /* No text glyphs used as decorative "emoji-like" icons in the menu. */
+  .nav-menu.u007 .nav-link::after{content:''!important;display:none!important}
+}
+
+@media (max-width:480px){
+  .hero-editorial .hero-shell.u011{
+    padding-left:18px!important;
+    padding-right:18px!important;
+    padding-bottom:48px!important;
+  }
+  .hero-title.u012{
+    font-size:clamp(45px,12.7vw,56px)!important;
+    margin-top:clamp(40px,6vh,64px)!important;
+  }
+  .hero-meta{
+    grid-template-columns:60px minmax(0,1fr)!important;
+    column-gap:17px!important;
+    row-gap:22px!important;
+    padding-top:clamp(58px,10vh,90px)!important;
+  }
+  .hero-arrow{width:56px!important}
+  .hero-description{font-size:18px!important;line-height:1.42!important}
+  .hero-meta-item{font-size:15.5px!important}
+}
+
+@media (max-width:360px){
+  .hero-editorial .hero-shell.u011{
+    padding-left:16px!important;
+    padding-right:16px!important;
+  }
+  .hero-title.u012{font-size:43px!important}
+  .hero-meta{
+    grid-template-columns:52px minmax(0,1fr)!important;
+    column-gap:14px!important;
+  }
+  .hero-arrow{width:48px!important}
+  .hero-description{font-size:17px!important}
+}
+
+/* Very short mobile viewports still keep a substantial hero height. */
+@media (max-width:860px) and (max-height:760px){
+  .hero.hero-editorial.u010,
+  .hero-editorial .hero-shell.u011{min-height:820px!important}
+}
